@@ -1,5 +1,4 @@
 ---
-tasks:
 - include: tarefa1.yml
   when: baixar
 
