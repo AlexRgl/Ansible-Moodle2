@@ -1,5 +1,5 @@
 - name: Update all clients
-  hosts: all
+  hosts: CLIENT
   connection: local
   gather_facts: yes
   become: false
