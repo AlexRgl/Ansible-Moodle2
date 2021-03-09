@@ -1,0 +1,75 @@
+---
+
+
+  - name: apt-update
+    become: yes
+    become_method: sudo
+    shell: "apt-get update"
+
+  - name: install apache2
+    become: yes
+    become_method: sudo    
+    apt: name=apache2 state=latest
+
+  - name: install mysql
+    become: yes
+    become_method: sudo    
+    apt: name=mysql-server state=latest
+
+  - name: install php
+    become: yes
+    become_method: sudo    
+    apt: name=php state=latest
+
+  - name: install libapache2-mod-php
+    become: yes
+    become_method: sudo    
+    apt: name=libapache2-mod-php state=latest
+
+  - name: install php-mysql
+    become: yes
+    become_method: sudo    
+    apt: name=php-mysql state=latest
+
+  - name: install debconf-utils
+    become: yes
+    become_method: sudo    
+    apt: name=debconf-utils state=latest
+
+  - name: install php-mbstring
+    become: yes
+    become_method: sudo    
+    apt: name=php-mbstring state=latest
+
+  - name: install php-intl
+    become: yes
+    become_method: sudo    
+    apt: name=php-intl state=latest
+
+  - name: install php-soap
+    become: yes
+    become_method: sudo    
+    apt: name=php-soap state=latest
+
+  - name: install php-xml
+    become: yes
+    become_method: sudo    
+    apt: name=php-xml state=latest
+
+  - name: install php-xmlrpc
+    become: yes
+    become_method: sudo    
+    apt: name=php-xmlrpc state=latest
+
+  - name: install build-essential
+    become: yes
+    become_method: sudo    
+    apt: name=build-essential state=latest
+
+  - git:
+      repo: 'https://git.in.moodle.com/moodle/moodle.git'
+      dest: /tmp/moodle
+
+  - git:
+      repo: 'https://github.com/joomla/joomla-cms.git'
+      dest: /tmp/joomla

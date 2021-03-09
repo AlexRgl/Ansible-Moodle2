@@ -1,0 +1,7 @@
+---
+- include: tarefa1.yml
+  when: baixar_instalar
+
+- include: tarefa2.yml
+  when: configurar
+  

@@ -1,0 +1,80 @@
+---
+
+
+  - name: cp moodle
+    become: yes
+    become_method: sudo
+    shell: "cp -r /tmp/moodle /var/www"
+
+  - name: cp joomla
+    become: yes
+    become_method: sudo
+    shell: "cp -r /tmp/joomla /var/www"
+
+  - name: copy info.php
+    become: yes
+    become_method: sudo
+    copy: src=files/info.php dest=/var/www/joomla
+
+  - name: copy info.php
+    become: yes
+    become_method: sudo
+    copy: src=files/info.php dest=/var/www/moodle
+ 
+  - name: passwd mysql
+    copy: src=files/script.sql dest=/tmp/
+
+  - name: mysql script
+    become: yes
+    become_method: sudo
+    shell: "mysql </tmp/script.sql"
+
+  - name: phpadmin script
+    become: yes
+    become_method: sudo
+    copy: src=files/phpadmin.sh dest=/tmp/
+
+  - name: php script
+    become: yes
+    become_method: sudo
+    shell: "sh /tmp/phpadmin.sh"
+
+  - name: install phpmyadmin
+    become: yes
+    become_method: sudo    
+    apt: name=phpmyadmin state=latest
+
+  - name: copy 000
+    become: yes
+    become_method: sudo
+    copy: src=files/000-default.conf dest=/etc/apache2/sites-available
+
+  - name: copy 001
+    become: yes
+    become_method: sudo
+    copy: src=files/001-default.conf dest=/etc/apache2/sites-available
+
+  - name: copy ports.conf
+    become: yes
+    become_method: sudo
+    copy: src=files/ports.conf dest=/etc/apache2/
+
+  - name: a2ensite 000
+    become: yes
+    become_method: sudo
+    shell: "a2ensite 000-default.conf"
+
+  - name: a2ensite 001
+    become: yes
+    become_method: sudo
+    shell: "a2ensite 001-default.conf"
+
+  - name: restart apache2
+    become: yes
+    become_method: sudo
+    shell: "systemctl restart apache2"
+
+  - name: configuration.php
+    become: yes
+    become_method: sudo
+    copy: src=files/configuration.php dest=/var/www/joomla
