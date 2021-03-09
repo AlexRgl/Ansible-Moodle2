@@ -6,11 +6,6 @@
     become_method: sudo
     shell: "apt-get update"
 
-  - name: install nginx
-    become: yes
-    become_method: sudo    
-    apt: name=apache2 state=latest
-
   - name: install apache2
     become: yes
     become_method: sudo    
