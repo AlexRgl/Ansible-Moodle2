@@ -122,10 +122,10 @@
     become_method: sudo
     copy: src=000-default.conf dest=/etc/apache2/sites-available
 
-  - name: copy 001
+  - name: copy default
     become: yes
     become_method: sudo
-    copy: src=001-default.conf dest=/etc/apache2/sites-available
+    copy: src=default-ssl.conf dest=/etc/apache2/sites-available
 
   - name: copy ports.conf
     become: yes
@@ -137,10 +137,10 @@
     become_method: sudo
     shell: "a2ensite 000-default.conf"
 
-  - name: a2ensite 001
+  - name: a2ensite default
     become: yes
     become_method: sudo
-    shell: "a2ensite 001-default.conf"
+    shell: "a2ensite default-ssl.conf"
 
   - name: restart apache2
     become: yes
@@ -166,3 +166,23 @@
     become: yes
     become_method: sudo
     shell: "chmod -R 777 /var/www/moodledata"
+
+  - name: copy crt
+    become: yes
+    become_method: sudo
+    copy: src=amazonaws.com.crt dest=/etc/ssl/certs
+
+  - name: copy key
+    become: yes
+    become_method: sudo
+    copy: src=amazonaws.com.key dest=/etc/ssl/private
+
+  - name: ssl
+    become: yes
+    become_method: sudo
+    shell: "a2enmod ssl"
+    
+  - name: restart apache2
+    become: yes
+    become_method: sudo
+    shell: "systemctl restart apache2"
